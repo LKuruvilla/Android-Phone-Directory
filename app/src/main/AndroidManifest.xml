@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lovin.stalphonsachurchdirectory">
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.Camera" />
 
+    <uses-feature android:name="android.hardware.Camera" />
 
     <application
         android:allowBackup="true"
@@ -21,9 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewScreen" />
-        <activity android:name=".PreviewPhotoScreen" />
-        <activity android:name=".AddScreen"></activity>
+        <activity android:name=".ViewActivity" />
+        <activity android:name=".CameraActivity" />
+        <activity android:name=".AddActivity" />
+        <activity android:name=".EditActivity"></activity>
     </application>
 
 </manifest>

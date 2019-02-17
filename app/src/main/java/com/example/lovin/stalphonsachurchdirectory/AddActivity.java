@@ -1,42 +1,47 @@
 package com.example.lovin.stalphonsachurchdirectory;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.util.ArrayList;
 
-public class AddScreen extends AppCompatActivity {
+public class AddActivity extends AppCompatActivity {
 
+    private static final String TAG = "AddScreenActivity";
+    int index;
     EditText couple, children, street, city, state, zip, ph, notes;
     Button capturePhoto, save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_screen);
+        setContentView(R.layout.activity_add);
         init();
+        try{
+            Intent edit = getIntent();
+            String temp = edit.getStringExtra("index");
+            index = Integer.valueOf(temp);
+
+            populateField();
+
+        }catch (Exception e)
+        {
+            Log.d(TAG,"Failed to get intent: "+e.getLocalizedMessage());
+
+        }
+
     }
     public void init(){
         couple = findViewById(R.id.coupleText);
         children = findViewById(R.id.childrenText);
-        street = findViewById(R.id.stateText);
+        street = findViewById(R.id.streetText);
         city = findViewById(R.id.cityText);
         state = findViewById(R.id.stateText);
         zip = findViewById(R.id.zipText3);
@@ -46,10 +51,25 @@ public class AddScreen extends AppCompatActivity {
         save = findViewById(R.id.saveButton);
 
     }
+
+    public void populateField(){
+        DBMS db = new DBMS();
+        ArrayList<Info> items = db.view(getApplicationContext());
+        Info i = items.get(index);
+
+        couple.setText(i.getCouplename());
+        children.setText(i.getChildname());
+        street.setText(i.getStreet()+" oooooo");
+        city.setText(i.getCity());
+        state.setText(i.getState());
+        zip.setText(i.getZipcode());
+        ph.setText(i.getPh());
+        notes.setText(i.getNote());
+    }
     public void takePic(View view)
     {
         Intent takePicture = new Intent();
-        takePicture.setClass(this.getApplicationContext(), PreviewPhotoScreen.class);
+        takePicture.setClass(this.getApplicationContext(),CameraActivity.class);
         startActivity(takePicture);
     }
     public void save(View view)
@@ -68,15 +88,20 @@ public class AddScreen extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         TransferData.bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         i.setPic(stream.toByteArray());
-        DBMS db = new DBMS(this,null,null,1);
+        DBMS db = new DBMS();
         db.addEntry(i);
        //TODO request permission to write to external storage
 
 
+        /*
 
         try {
 
             final String inFileName = "/data/data/com.example.lovin.stalphonsachurchdirectory/databases/St.Augustine.db";
+             String external = Environment.getExternalStorageDirectory().getAbsolutePath();
+             String data = Environment.getRootDirectory().toURI().getPath();
+             Log.d(TAG,"External:"+external);
+             Log.d(TAG,"data:"+data);
 
             File dbFile = new File(inFileName);
             FileInputStream fis = new FileInputStream(dbFile);
@@ -99,10 +124,10 @@ public class AddScreen extends AppCompatActivity {
             fis.close();
         }catch (Exception e)
         {
-            Log.d("AddScreen", e.getLocalizedMessage());
+
         }
 
-
+*/
     }
 
 

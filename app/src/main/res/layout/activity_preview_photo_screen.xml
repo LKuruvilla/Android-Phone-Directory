@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PreviewPhotoScreen">
+    tools:context=".CameraActivity">
 
 
     <FrameLayout
@@ -27,6 +27,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="163dp"
+        android:onClick="captureImage"
         android:text="Capture Image" />
 
     <Button
