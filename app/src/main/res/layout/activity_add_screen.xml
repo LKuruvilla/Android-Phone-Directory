@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddScreen">
+
+
+    <EditText
+        android:id="@+id/phoneText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="219dp"
+        android:layout_marginStart="72dp"
+        android:ems="10"
+        android:hint="Phone#"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/zipText3"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/cityText"
+        android:layout_marginEnd="26dp"
+        android:ems="10"
+        android:hint="ZipCode"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/noteText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/phoneText"
+        android:layout_marginBottom="144dp"
+        android:ems="10"
+        android:hint="Extra Notes"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/coupleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Couple Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/childrenText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/coupleText"
+        android:layout_marginTop="85dp"
+        android:ems="10"
+        android:hint="Children Name"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/Street"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/coupleText"
+        android:layout_marginTop="169dp"
+        android:ems="10"
+        android:hint="Street"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/cityText"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="237dp"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/stateText"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/cityText"
+        android:layout_marginEnd="142dp"
+        android:ems="10"
+        android:hint="State"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/takePic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="57dp"
+        android:layout_marginStart="-142dp"
+        android:layout_toEndOf="@+id/stateText"
+        android:onClick="takePic"
+        android:text="CaptureImage" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/cityText"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="48dp"
+        android:onClick="save"
+        android:text="Save" />
+</RelativeLayout>
