@@ -203,4 +203,5 @@ public class ViewActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
 }

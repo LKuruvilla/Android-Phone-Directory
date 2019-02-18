@@ -25,11 +25,13 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         init();
-        try{
+        try
+        {
             Intent edit = getIntent();
             String temp = edit.getStringExtra("index");
             index = Integer.valueOf(temp);
 
+            //
             populateField();
 
         }catch (Exception e)
@@ -50,6 +52,7 @@ public class AddActivity extends AppCompatActivity {
         }
 
     }
+
     public void init(){
         couple = findViewById(R.id.coupleText);
         children = findViewById(R.id.childrenText);
@@ -65,13 +68,14 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void populateField(){
-        DBMS db = new DBMS();
-        ArrayList<Info> items = db.view(getApplicationContext());
-        i= items.get(index);
+//        DBMS db = new DBMS();
+//        ArrayList<Info> items = db.view(getApplicationContext());
+//        i= items.get(index);
 
+         i = TransferData.array_item.get(index);
         couple.setText(i.getCouplename());
         children.setText(i.getChildname());
-        street.setText(i.getStreet()+" oooooo");
+        street.setText(i.getStreet());
         city.setText(i.getCity());
         state.setText(i.getState());
         zip.setText(i.getZipcode());
@@ -85,14 +89,13 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
-    public void takePic(View view)
-    {
+    public void takePic(View view){
         Intent takePicture = new Intent();
         takePicture.setClass(this.getApplicationContext(),CameraActivity.class);
         startActivity(takePicture);
     }
-    public void save(View view)
-    {
+
+    public void save(View view){
         Info i = new Info();
         i.setCouplename(couple.getText().toString().trim());
         i.setChildname(children.getText().toString().trim());
@@ -140,8 +143,6 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-
-
     public void updateDB(){
         Info in = new Info();
         in.setId(i.getId());
@@ -153,9 +154,18 @@ public class AddActivity extends AppCompatActivity {
         in.setZipcode(zip.getText().toString().trim());
         in.setPh(ph.getText().toString().trim());
         in.setNote(notes.getText().toString().trim());
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        TransferData.bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        in.setPic(stream.toByteArray());
+        if(TransferData.bitmap!=null)
+        {
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            TransferData.bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+            TransferData.bitmap = null;
+            in.setPic(stream.toByteArray());
+        }
+        else
+            in.setPic(i.getPic());
+
+
 
         DBMS db = new DBMS();
         db.updateEntry(in);
