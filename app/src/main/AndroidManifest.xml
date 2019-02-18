@@ -23,9 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ViewActivity" />
+        <activity android:name=".ViewActivity"/>
         <activity android:name=".CameraActivity" />
-        <activity android:name=".AddActivity" />
+        <activity android:name=".AddActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".EditActivity" />
         <activity android:name=".SearchActivity"></activity>
     </application>
