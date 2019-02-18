@@ -263,11 +263,11 @@ public class DBMS  {
                 i.setState(cs.getString(cs.getColumnIndex(State)));
                 i.setNote(cs.getString(cs.getColumnIndex(Note)));
                 i.setPic(cs.getBlob(cs.getColumnIndex(ByteArray)));
-                if(i.getPic()==null)
-               {
-                   i.setPic(ref);
-
-               }
+//                if(i.getPic()==null)
+//               {
+//                   i.setPic(ref);
+//
+//               }
 
                 items.add(i);
                 i=null;

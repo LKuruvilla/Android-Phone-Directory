@@ -1,6 +1,7 @@
 package com.example.lovin.stalphonsachurchdirectory;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -8,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -60,15 +62,64 @@ public class ViewActivity extends AppCompatActivity {
 
             String key = getIntent().getStringExtra("key");
             key.matches("1");
+            new previewThread().execute();
 
         } catch (Exception e) {
-            DBMS db = new DBMS();
-            DBMS.ref = bitmapdata;
-            TransferData.array_item = db.view(getApplicationContext());
+            new viewThread().execute();
         }
 
 
-        previewData();
+        //previewData();
+    }
+    private class previewThread extends AsyncTask<Void,Integer,Void>
+    {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            previewData();
+        }
+    }
+
+    private class viewThread extends AsyncTask<Void,Integer,Void>
+    {
+        ProgressDialog progress;
+
+        @Override
+        protected void onPreExecute() {
+            progress = new ProgressDialog(getApplicationContext());
+            progress.setMessage("Accessing Contacts..Please Wait...");
+            progress.setProgress(20);
+            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progress.setIndeterminate(true);
+            progress.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            DBMS db = new DBMS();
+            //DBMS.ref = bitmapdata;
+            TransferData.array_item = db.view(getApplicationContext());
+            publishProgress(100);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            previewData();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+           progress.setProgress(values[0]);
+           progress.show();
+        }
     }
 
     public void search(View view) {
@@ -96,7 +147,13 @@ public class ViewActivity extends AppCompatActivity {
             ph.setText(i.getPh());
             address.setText(i.getStreet() + " " + i.getCity() + " " + i.getState() + " " + i.getZipcode());
             notes.setText(i.getNote());
-            img.setImageBitmap(getImage(i.getPic()));
+            //
+            if(i.getPic()==null)
+            {
+                img.setImageResource(R.drawable.no_image);
+            }
+            else
+                img.setImageBitmap(getImage(i.getPic()));
             if (TransferData.array_item.size() > 1) {
                 nex.setVisibility(View.VISIBLE);
                 prev.setVisibility(View.VISIBLE);
@@ -119,7 +176,14 @@ public class ViewActivity extends AppCompatActivity {
         ph.setText(i.getPh());
         address.setText(i.getStreet() + " " + i.getCity() + " " + i.getState() + " " + i.getZipcode());
         notes.setText(i.getNote());
-        img.setImageBitmap(getImage(i.getPic()));
+        if(i.getPic()==null)
+        {
+            img.setImageResource(R.drawable.no_image);
+
+        }
+        else
+            img.setImageBitmap(getImage(i.getPic()));
+
         if (index == count)
             index = 0;
     }
@@ -140,7 +204,12 @@ public class ViewActivity extends AppCompatActivity {
         ph.setText(i.getPh());
         address.setText(i.getStreet() + " " + i.getCity() + " " + i.getState() + " " + i.getZipcode());
         notes.setText(i.getNote());
-        img.setImageBitmap(getImage(i.getPic()));
+        if(i.getPic()==null)
+        {
+            img.setImageResource(R.drawable.no_image);
+        }
+        else
+            img.setImageBitmap(getImage(i.getPic()));
 
     }
 
