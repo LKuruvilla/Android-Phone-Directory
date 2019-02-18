@@ -21,7 +21,7 @@ public class ViewActivity extends AppCompatActivity {
     TextView couple, children, ph, address, notes;
     ImageView img;
     ArrayList<Info> items;
-    int count, index, current;
+    int count, index, current, id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,12 +68,17 @@ public class ViewActivity extends AppCompatActivity {
                 count = items.size();
                 current =index =0;
                 Info i = items.get(index);
+                id=i.getId();
                 couple.setText(i.getCouplename());
                 children.setText(i.getChildname());
                 ph.setText(i.getPh());
                 address.setText(i.getStreet()+" "+i.getCity()+" "+i.getState()+ " "+i.getZipcode());
                 notes.setText(i.getNote());
                 img.setImageBitmap(getImage(i.getPic()));
+                if(items.size()>1) {
+                    nex.setVisibility(View.VISIBLE);
+                    prev.setVisibility(View.VISIBLE);
+                }
                 index++;
 
 
@@ -87,6 +92,7 @@ public class ViewActivity extends AppCompatActivity {
         Toast.makeText(this, "Value of index:"+index, Toast.LENGTH_SHORT).show();
         Info i = items.get(index);
         current = index;
+        id=i.getId();
         index++;
         couple.setText(i.getCouplename());
         children.setText(i.getChildname());
@@ -105,6 +111,7 @@ public class ViewActivity extends AppCompatActivity {
             index--;
 
         Info i = items.get(index);
+        id = i.getId();
         current = index;
 
         couple.setText(i.getCouplename());
@@ -126,7 +133,11 @@ public class ViewActivity extends AppCompatActivity {
         }
         return bitmap;
     }
-
+    public void deleteEntry(View view)
+    {
+        DBMS db = new DBMS();
+        db.deleteEntry(id);
+    }
     public void addEntry(View view){
         Intent addScreen = new Intent();
         addScreen.setClass(this.getApplicationContext(),AddActivity.class);

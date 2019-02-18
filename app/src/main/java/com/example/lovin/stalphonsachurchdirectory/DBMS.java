@@ -145,6 +145,14 @@ public class DBMS  {
         db.close();
     }
 
+    public void deleteEntry(int i)
+    {
+        db = SQLiteDatabase.openDatabase(path, null,
+                SQLiteDatabase.OPEN_READWRITE);
+        String query = "DELETE FROM "+TABLE_NAME+" WHERE "+Col_ID+" = "+i+";";
+        db.execSQL(query);
+    }
+
 
     public ArrayList<Info> view(Context context){
         ArrayList<Info> items = new ArrayList<Info>();
@@ -202,6 +210,8 @@ public class DBMS  {
         return items;
 
     }
+
+
 
 
 
