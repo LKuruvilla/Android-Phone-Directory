@@ -153,9 +153,78 @@ public class DBMS  {
         db.execSQL(query);
     }
 
+    public ArrayList<Info> searchEntry(String s){
+        ArrayList<Info> items= null;
+        items = new ArrayList<Info>();
+        String query_allItems = "SELECT * FROM "+TABLE_NAME+ " WHERE "+Couple_Name +" LIKE '"+s+"%' ;";
+
+        db = SQLiteDatabase.openDatabase(path, null,
+                SQLiteDatabase.OPEN_READONLY);
+
+
+        // Toast.makeText(context, "Please make a database first", Toast.LENGTH_SHORT).show();
+
+
+        String count = "SELECT count(*) FROM "+TABLE_NAME+ " ;";
+        Cursor mcursor = db.rawQuery(count, null);
+        mcursor.moveToFirst();
+        int icount = mcursor.getInt(0);
+        if(icount==0)
+        {
+            //Toast.makeText(context, "Please add items first", Toast.LENGTH_SHORT).show();
+            return items;
+        }
+
+        //create cursor to move from each rows
+        Cursor cs = null;
+        try {
+            cs = db.rawQuery(query_allItems, null);
+        }catch (Exception e)
+        {
+            int x = 2+2;
+        }
+
+        cs.moveToFirst();
+
+        while(!cs.isAfterLast())
+        {
+            // if (cs.getString(cs.getColumnIndex(Couple_Name)) != null) {
+            Info i = new Info();
+            i.setId(cs.getInt(cs.getColumnIndex(Col_ID)));
+            i.setCouplename(cs.getString(cs.getColumnIndex(Couple_Name)));
+            i.setChildname(cs.getString(cs.getColumnIndex(Child_Name)));
+            i.setPh(cs.getString(cs.getColumnIndex(Phone_no)));
+            i.setStreet(cs.getString(cs.getColumnIndex(Street)));
+            i.setCity(cs.getString(cs.getColumnIndex(City)));
+            i.setZipcode(cs.getString(cs.getColumnIndex(Zip)));
+            i.setState(cs.getString(cs.getColumnIndex(State)));
+            i.setNote(cs.getString(cs.getColumnIndex(Note)));
+            i.setPic(cs.getBlob(cs.getColumnIndex(ByteArray)));
+            if(i.getPic()==null)
+            {
+                i.setPic(ref);
+
+            }
+
+            items.add(i);
+            i=null;
+
+            cs.moveToNext();
+
+        }
+        db.close();
+        cs.close();
+        mcursor.close();
+        return items;
+
+
+
+
+    }
 
     public ArrayList<Info> view(Context context){
-        ArrayList<Info> items = new ArrayList<Info>();
+        ArrayList<Info> items = null;
+        items = new ArrayList<Info>();
         String query_allItems = "SELECT * FROM "+TABLE_NAME+ " ;";
 
             db = SQLiteDatabase.openDatabase(path, null,
@@ -206,7 +275,10 @@ public class DBMS  {
             cs.moveToNext();
 
         }
+        mcursor.close();
+        cs.close();
         db.close();
+
         return items;
 
     }

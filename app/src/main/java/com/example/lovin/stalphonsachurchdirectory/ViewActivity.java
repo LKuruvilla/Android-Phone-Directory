@@ -17,7 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class ViewActivity extends AppCompatActivity {
-    Button add,edit,delete, prev, nex;
+    Button add,edit,delete, prev, nex, search;
     TextView couple, children, ph, address, notes;
     ImageView img;
     ArrayList<Info> items;
@@ -28,6 +28,7 @@ public class ViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view);
         init();
     }
+
     public void init(){
         add = findViewById(R.id.addButton);
         edit = findViewById(R.id.editButton);
@@ -40,6 +41,7 @@ public class ViewActivity extends AppCompatActivity {
         address = findViewById(R.id.addressText);
         notes = findViewById(R.id.notesText);
         img = findViewById(R.id.imgView);
+        search = findViewById(R.id.searchButton);
 
 
         Drawable d =getResources().getDrawable(R.drawable.no_image); // the drawable (Captain Obvious, to the rescue!!!)
@@ -47,27 +49,47 @@ public class ViewActivity extends AppCompatActivity {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bitmapdata = stream.toByteArray();
-        DBMS db = new DBMS();
-        DBMS.ref = bitmapdata;
-        items = db.view(getApplicationContext());
+
+
+        try
+        {
+
+            String key = getIntent().getStringExtra("key");
+            key.matches("1");
+
+        }catch (Exception e)
+        {
+            DBMS db = new DBMS();
+            DBMS.ref = bitmapdata;
+            TransferData.array_item = db.view(getApplicationContext());
+        }
+
+
 
 
         previewData();
     }
 
+    public void search(View view){
+        Intent search = new Intent();
+        search.setClass(getApplicationContext(), SearchActivity.class);
+        startActivity(search);
+        finish();
 
-    public void previewData()
-    {
-        if(items.isEmpty()) {
+
+    }
+
+    public void previewData(){
+        if(TransferData.array_item.isEmpty()) {
             Toast.makeText(this, "No data yet, please add people", Toast.LENGTH_SHORT).show();
             return;
         }
         else
         {       edit.setVisibility(View.VISIBLE);
                 delete.setVisibility(View.VISIBLE);
-                count = items.size();
+                count = TransferData.array_item.size();
                 current =index =0;
-                Info i = items.get(index);
+                Info i = TransferData.array_item.get(index);
                 id=i.getId();
                 couple.setText(i.getCouplename());
                 children.setText(i.getChildname());
@@ -75,7 +97,7 @@ public class ViewActivity extends AppCompatActivity {
                 address.setText(i.getStreet()+" "+i.getCity()+" "+i.getState()+ " "+i.getZipcode());
                 notes.setText(i.getNote());
                 img.setImageBitmap(getImage(i.getPic()));
-                if(items.size()>1) {
+                if(TransferData.array_item.size()>1) {
                     nex.setVisibility(View.VISIBLE);
                     prev.setVisibility(View.VISIBLE);
                 }
@@ -88,9 +110,10 @@ public class ViewActivity extends AppCompatActivity {
         }
 
     }
+
     public void next(View view){
         Toast.makeText(this, "Value of index:"+index, Toast.LENGTH_SHORT).show();
-        Info i = items.get(index);
+        Info i = TransferData.array_item.get(index);
         current = index;
         id=i.getId();
         index++;
@@ -103,6 +126,7 @@ public class ViewActivity extends AppCompatActivity {
         if(index==count)
             index=0;
     }
+
     public void previous(View view){
         Toast.makeText(this, "Value of index:"+index, Toast.LENGTH_SHORT).show();
         if(index==0)
@@ -110,7 +134,7 @@ public class ViewActivity extends AppCompatActivity {
         else
             index--;
 
-        Info i = items.get(index);
+        Info i = TransferData.array_item.get(index);
         id = i.getId();
         current = index;
 
@@ -122,8 +146,8 @@ public class ViewActivity extends AppCompatActivity {
         img.setImageBitmap(getImage(i.getPic()));
 
     }
-    public Bitmap getImage(byte[] image)
-    {
+
+    public Bitmap getImage(byte[] image){
         Bitmap bitmap;
         try {
           bitmap  = BitmapFactory.decodeByteArray(image, 0, image.length);
@@ -133,11 +157,12 @@ public class ViewActivity extends AppCompatActivity {
         }
         return bitmap;
     }
-    public void deleteEntry(View view)
-    {
+
+    public void deleteEntry(View view){
         DBMS db = new DBMS();
         db.deleteEntry(id);
     }
+
     public void addEntry(View view){
         Intent addScreen = new Intent();
         addScreen.setClass(this.getApplicationContext(),AddActivity.class);
