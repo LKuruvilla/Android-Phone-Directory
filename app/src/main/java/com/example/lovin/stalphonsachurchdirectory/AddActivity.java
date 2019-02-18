@@ -114,6 +114,12 @@ public class AddActivity extends AppCompatActivity {
         }
         DBMS db = new DBMS();
         db.addEntry(i);
+
+        Intent toView = new Intent();
+        toView.setClass(getApplicationContext(), ViewActivity.class);
+        startActivity(toView);
+        finish();
+
        //TODO request permission to write to external storage
 
 
@@ -153,6 +159,11 @@ public class AddActivity extends AppCompatActivity {
 
         DBMS db = new DBMS();
         db.updateEntry(in);
+
+        Intent toView = new Intent();
+        toView.setClass(getApplicationContext(), ViewActivity.class);
+        startActivity(toView);
+        finish();
 
 
 
