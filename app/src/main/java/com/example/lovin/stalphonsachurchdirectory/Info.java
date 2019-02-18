@@ -6,6 +6,15 @@ public class Info {
     byte[] pic;
     String couplename, childname, ph, street, city, zipcode, state;
     String note;
+    int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public byte[] getPic() {
         return pic;

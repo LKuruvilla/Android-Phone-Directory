@@ -34,7 +34,7 @@ public class CameraActivity extends AppCompatActivity {
     }
     public void init(){
 
-        TransferData.bitmap = null;
+
         this.imageView = (ImageView)this.findViewById(R.id.imageView);
         capture = findViewById(R.id.pictureButton);
         finished = findViewById(R.id.finishButton);
@@ -50,6 +50,7 @@ public class CameraActivity extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+                TransferData.bitmap = null;
                 Log.d(TAG, "Inside capture onActivity Result ");
 
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -63,11 +64,13 @@ public class CameraActivity extends AppCompatActivity {
     public void finishedPreview(View view)
     {
         Log.d(TAG, "Inside capture finish preview ");
+        onBackPressed();
+      //  Intent toAddScreen = new Intent();
+      //  toAddScreen.setClass(this.getApplicationContext(), AddActivity.class);
+      //  startActivity(toAddScreen);
 
-        Intent toAddScreen = new Intent();
-        toAddScreen.setClass(this.getApplicationContext(), AddActivity.class);
-        startActivity(toAddScreen);
-        finish();
+
+        //finishActivity(1);
 
 
     }

@@ -2,6 +2,7 @@ package com.example.lovin.stalphonsachurchdirectory;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class AddActivity extends AppCompatActivity {
 
     private static final String TAG = "AddScreenActivity";
-    int index;
+    int index;Info i;
     EditText couple, children, street, city, state, zip, ph, notes;
     Button capturePhoto, save;
     @Override
@@ -35,6 +36,17 @@ public class AddActivity extends AppCompatActivity {
         {
             Log.d(TAG,"Failed to get intent: "+e.getLocalizedMessage());
 
+        }
+        if(savedInstanceState!=null)
+        {
+            couple.setText(savedInstanceState.getString("couple"));
+            children.setText(savedInstanceState.getString("children"));
+            ph.setText(savedInstanceState.getString("ph"));
+            street.setText(savedInstanceState.getString("street"));
+            city.setText(savedInstanceState.getString("city"));
+            state.setText(savedInstanceState.getString("state"));
+            zip.setText(savedInstanceState.getString("zip"));
+            notes.setText(savedInstanceState.getString("notes"));
         }
 
     }
@@ -55,7 +67,7 @@ public class AddActivity extends AppCompatActivity {
     public void populateField(){
         DBMS db = new DBMS();
         ArrayList<Info> items = db.view(getApplicationContext());
-        Info i = items.get(index);
+        i= items.get(index);
 
         couple.setText(i.getCouplename());
         children.setText(i.getChildname());
@@ -65,7 +77,14 @@ public class AddActivity extends AppCompatActivity {
         zip.setText(i.getZipcode());
         ph.setText(i.getPh());
         notes.setText(i.getNote());
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDB();
+            }
+        });
     }
+
     public void takePic(View view)
     {
         Intent takePicture = new Intent();
@@ -85,12 +104,60 @@ public class AddActivity extends AppCompatActivity {
         i.setNote(notes.getText().toString().trim());
 
         //convert image to byte array
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        TransferData.bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        i.setPic(stream.toByteArray());
+        if(TransferData.bitmap!=null)
+        {
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            TransferData.bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+            TransferData.bitmap = null;
+            i.setPic(stream.toByteArray());
+        }
         DBMS db = new DBMS();
         db.addEntry(i);
        //TODO request permission to write to external storage
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        outState.putString(couple.getText().toString(), "couple");
+        outState.putString(children.getText().toString(),"children");
+        outState.putString(ph.getText().toString(),"ph");
+        outState.putString(street.getText().toString(),"street");
+        outState.putString(city.getText().toString(),"city");
+        outState.putString(zip.getText().toString(),"zip");
+        outState.putString(state.getText().toString(),"state");
+        outState.putString(notes.getText().toString(),"notes");
+        super.onSaveInstanceState(outState);
+
+    }
+
+
+
+    public void updateDB(){
+        Info in = new Info();
+        in.setId(i.getId());
+        in.setCouplename(couple.getText().toString().trim());
+        in.setChildname(children.getText().toString().trim());
+        in.setStreet(street.getText().toString().trim());
+        in.setCity(city.getText().toString().trim());
+        in.setState(state.getText().toString().trim());
+        in.setZipcode(zip.getText().toString().trim());
+        in.setPh(ph.getText().toString().trim());
+        in.setNote(notes.getText().toString().trim());
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        TransferData.bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        in.setPic(stream.toByteArray());
+
+        DBMS db = new DBMS();
+        db.updateEntry(in);
+
+
+
+    }
+}
 
 
         /*
@@ -128,10 +195,3 @@ public class AddActivity extends AppCompatActivity {
         }
 
 */
-    }
-
-
-    public static void saveDB(){
-
-    }
-}

@@ -2,16 +2,24 @@ package com.example.lovin.stalphonsachurchdirectory;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
+
+
 
 public class DBMS  {
     public static final String  DATABASE_FILE_PATH = Environment.getExternalStorageDirectory().toString();
@@ -33,6 +41,7 @@ public class DBMS  {
     public final String State = "state";
     public final String Note = "note";
     public final String ByteArray = "byte_array";
+    public static byte[] ref;
     private SQLiteDatabase db;
 
     public DBMS() {
@@ -43,6 +52,8 @@ public class DBMS  {
             Log.d(TAG,"path:"+path);
             onCreate();
             Log.d(TAG,"Created tables");
+
+
         }
         catch (SQLiteException ex)
         {
@@ -101,6 +112,40 @@ public class DBMS  {
         db.close();
 
     }
+
+
+    public void updateEntry(Info i)
+    {   Info info = i;
+
+        db = SQLiteDatabase.openDatabase(path, null,
+                SQLiteDatabase.OPEN_READWRITE);
+        String updateQuery = "UPDATE "+TABLE_NAME +" SET "+Couple_Name+" ="+i.getCouplename()
+                +" ,"+Child_Name+" ="+i.getChildname()
+                +" ,"+Phone_no+" ="+i.getPh()
+                +" ,"+Street+" ="+i.getStreet()
+                +" ,"+City+" ="+i.getCity()
+                +" ,"+State+" ="+i.getState()
+                +" ,"+Zip+" ="+i.getZipcode()
+                +" ,"+Note+" ="+i.getNote()
+                +" ,"+ByteArray+" ="+i.getPic()
+                +" WHERE "+Col_ID+" = "+i.getId()+ " ;";
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(Couple_Name, info.getCouplename().trim());
+        contentValues.put(Child_Name,info.getChildname().trim());
+        contentValues.put(Phone_no,info.getPh().trim());
+        contentValues.put(Street,info.getStreet().trim());
+        contentValues.put(City,info.getCity().trim());
+        contentValues.put(Zip,info.getZipcode());
+        contentValues.put(State, info.getState());
+        contentValues.put(Note,info.getNote());
+        contentValues.put(ByteArray,info.getPic());
+        int count = db.update(TABLE_NAME,contentValues,Col_ID+"="+info.getId(),null);
+      //  db.execSQL(updateQuery);
+        db.close();
+    }
+
+
     public ArrayList<Info> view(Context context){
         ArrayList<Info> items = new ArrayList<Info>();
         String query_allItems = "SELECT * FROM "+TABLE_NAME+ " ;";
@@ -131,6 +176,7 @@ public class DBMS  {
         {
            // if (cs.getString(cs.getColumnIndex(Couple_Name)) != null) {
                 Info i = new Info();
+                i.setId(cs.getInt(cs.getColumnIndex(Col_ID)));
                 i.setCouplename(cs.getString(cs.getColumnIndex(Couple_Name)));
                 i.setChildname(cs.getString(cs.getColumnIndex(Child_Name)));
                 i.setPh(cs.getString(cs.getColumnIndex(Phone_no)));
@@ -140,6 +186,12 @@ public class DBMS  {
                 i.setState(cs.getString(cs.getColumnIndex(State)));
                 i.setNote(cs.getString(cs.getColumnIndex(Note)));
                 i.setPic(cs.getBlob(cs.getColumnIndex(ByteArray)));
+                if(i.getPic()==null)
+               {
+                   i.setPic(ref);
+
+               }
+
                 items.add(i);
                 i=null;
 

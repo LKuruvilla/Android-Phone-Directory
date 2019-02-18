@@ -3,6 +3,8 @@ package com.example.lovin.stalphonsachurchdirectory;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class ViewActivity extends AppCompatActivity {
@@ -38,8 +41,16 @@ public class ViewActivity extends AppCompatActivity {
         notes = findViewById(R.id.notesText);
         img = findViewById(R.id.imgView);
 
+
+        Drawable d =getResources().getDrawable(R.drawable.no_image); // the drawable (Captain Obvious, to the rescue!!!)
+        Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] bitmapdata = stream.toByteArray();
         DBMS db = new DBMS();
+        DBMS.ref = bitmapdata;
         items = db.view(getApplicationContext());
+
 
         previewData();
     }
@@ -106,7 +117,13 @@ public class ViewActivity extends AppCompatActivity {
     }
     public Bitmap getImage(byte[] image)
     {
-        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
+        Bitmap bitmap;
+        try {
+          bitmap  = BitmapFactory.decodeByteArray(image, 0, image.length);
+        }catch (Exception e)
+        {
+            return null;
+        }
         return bitmap;
     }
 
