@@ -73,6 +73,7 @@ public class ViewActivity extends AppCompatActivity {
 
         //previewData();
     }
+
     private class previewThread extends AsyncTask<Void,Integer,Void>{
 
         @Override

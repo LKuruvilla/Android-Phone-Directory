@@ -156,7 +156,7 @@ public class DBMS  {
     public ArrayList<Info> searchEntry(String s){
         ArrayList<Info> items= null;
         items = new ArrayList<Info>();
-        String query_allItems = "SELECT * FROM "+TABLE_NAME+ " WHERE "+Couple_Name +" LIKE '"+s+"%' ;";
+        String query_allItems = "SELECT * FROM "+TABLE_NAME+ " WHERE "+Couple_Name +" LIKE '%"+s+"%' ;";
 
         db = SQLiteDatabase.openDatabase(path, null,
                 SQLiteDatabase.OPEN_READONLY);
