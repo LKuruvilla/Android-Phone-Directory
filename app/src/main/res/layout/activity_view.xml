@@ -1,57 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ViewActivity">
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/addressText"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:clickable="true"
         android:contextClickable="true"
         android:onClick="maps"
         android:text="address"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneText" />
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/childrenText"
+        app:layout_constraintTop_toBottomOf="@+id/childrenText" />
 
     <TextView
         android:id="@+id/phoneText"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
-        android:layout_marginEnd="188dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:clickable="true"
         android:contextClickable="true"
         android:linksClickable="true"
         android:longClickable="true"
         android:onClick="call"
+        android:gravity="center"
         android:text="phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/childrenText" />
+        app:layout_constraintEnd_toEndOf="@+id/addressText"
+        app:layout_constraintTop_toBottomOf="@+id/addressText" />
 
     <TextView
         android:id="@+id/childrenText"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="168dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:text="children"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/coupleText" />
 
     <Button
         android:id="@+id/nextButton"
         android:layout_width="54dp"
-        android:layout_height="76dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="4dp"
         android:onClick="next"
         android:text="next"
+        android:gravity="center"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
@@ -59,11 +65,11 @@
     <Button
         android:id="@+id/prevButton"
         android:layout_width="58dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_height="33dp"
         android:layout_marginTop="4dp"
         android:onClick="previous"
         android:text="previous"
+        android:gravity="center"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
@@ -72,13 +78,12 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="187dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="16dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/searchButton">
 
         <ImageView
             android:id="@+id/imgView"
@@ -89,23 +94,29 @@
 
     <TextView
         android:id="@+id/coupleText"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="180dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="50dp"
         android:text="spouse"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
     <TextView
         android:id="@+id/notesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="188dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="250dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:text="Notes"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addressText" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneText" />
 
     <Button
         android:id="@+id/addButton"
@@ -115,7 +126,7 @@
         android:layout_marginTop="16dp"
         android:onClick="addEntry"
         android:text="Add"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/frameLayout"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -156,6 +167,6 @@
         app:layout_constraintStart_toEndOf="@+id/editButton"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
 </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
