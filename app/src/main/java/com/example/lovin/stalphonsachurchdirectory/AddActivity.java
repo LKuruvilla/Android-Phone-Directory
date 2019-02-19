@@ -1,5 +1,6 @@
 package com.example.lovin.stalphonsachurchdirectory;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.PersistableBundle;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 public class AddActivity extends AppCompatActivity {
 
+    private static final int CAMERA_REQUEST = 2;
     private static final String TAG = "AddScreenActivity";
     int index;Info i;
     EditText couple, children, street, city, state, zip, ph, notes;
@@ -90,9 +92,27 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void takePic(View view){
-        Intent takePicture = new Intent();
-        takePicture.setClass(this.getApplicationContext(),CameraActivity.class);
-        startActivity(takePicture);
+//        Intent takePicture = new Intent();
+//        takePicture.setClass(this.getApplicationContext(),CameraActivity.class);
+//        startActivity(takePicture);
+
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
+            TransferData.bitmap = null;
+            Log.d(TAG, "Inside capture onActivity Result ");
+
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+           // imageView.setImageBitmap(photo);
+            TransferData.bitmap =photo;
+          //  capture.setText("ReCapture Image");
+           // finished.setVisibility(View.VISIBLE);
+
+        }
     }
 
     public void save(View view){
