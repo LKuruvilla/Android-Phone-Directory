@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrime"
-    tools:context=".MainActivity">
+    tools:context=".Splash"
+    android:background="@color/colorPrime">
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -41,5 +41,7 @@
             android:textColor="@color/colorText"
             android:textSize="50dp" />
     </LinearLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

@@ -4,9 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 
@@ -33,13 +35,18 @@ public class MainActivity extends AppCompatActivity {
         init();
 
 
+
+
     }
     public void init(){
-       view = findViewById(R.id.button1);
+
 
         if(!hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
         }
+
+
+
 
     }
     public void viewList(View view){
@@ -51,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     //code block to handle all permissions
-    public static boolean hasPermissions(Context context, String... permissions) {
+    public boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
             for (String permission : permissions) {
                 if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -59,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+        Intent viewScreen = new Intent();
+        viewScreen.setClass(this.getApplicationContext(), ViewActivity.class);
+        startActivity(viewScreen);
+        finish();
         return true;
     }
 }
