@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddActivity">
+    tools:context=".AddActivity"
+    android:background="@color/colorAdd"
+    >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -102,16 +104,16 @@
         app:layout_constraintStart_toStartOf="@+id/streetText"
         app:layout_constraintTop_toBottomOf="@+id/cityText" />
 
-    <Button
+    <ImageView
         android:id="@+id/takePic"
-        android:layout_width="162dp"
-        android:layout_height="52dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:gravity="center"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:onClick="takePic"
-        android:text="CaptureImage"
+        android:background="@drawable/camera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneText" />
@@ -134,7 +136,7 @@
         <EditText
             android:id="@+id/noteText"
             android:layout_width="250dp"
-            android:layout_height="44dp"
+            android:layout_height="72dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="24dp"
@@ -147,16 +149,17 @@
             app:layout_constraintTop_toBottomOf="@+id/takePic" />
 
 
-        <Button
+        <ImageView
             android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
 
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="4dp"
             android:layout_marginTop="16dp"
             android:onClick="save"
-            android:text="Save"
+            android:background="@drawable/save"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

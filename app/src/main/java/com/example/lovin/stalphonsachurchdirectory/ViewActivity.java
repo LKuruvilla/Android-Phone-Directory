@@ -25,7 +25,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class ViewActivity extends AppCompatActivity {
-    Button add, edit, delete, prev, nex, search;
+    ImageView add, edit, delete, prev, nex, search;
     TextView couple, children, ph, address, notes;
     ImageView img;
     ArrayList<Info> items;

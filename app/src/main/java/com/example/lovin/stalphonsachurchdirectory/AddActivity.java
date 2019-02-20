@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -21,7 +22,7 @@ public class AddActivity extends AppCompatActivity {
     private static final String TAG = "AddScreenActivity";
     int index;Info i;
     EditText couple, children, street, city, state, zip, ph, notes;
-    Button capturePhoto, save;
+    ImageView capturePhoto, save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +99,14 @@ public class AddActivity extends AppCompatActivity {
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent in = new Intent(getApplicationContext(),ViewActivity.class);
+        startActivity(in);
+        finish();
 
     }
 
