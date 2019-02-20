@@ -72,7 +72,7 @@ public class ViewActivity extends AppCompatActivity {
         }
 
 
-        //previewData();
+
     }
 
     private class previewThread extends AsyncTask<Void,Integer,Void>{
@@ -124,6 +124,25 @@ public class ViewActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Exiting App")
+                .setMessage("Are you sure you want to exit?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
     public void search(View view) {
         Intent search = new Intent();
         search.setClass(getApplicationContext(), SearchActivity.class);
@@ -168,7 +187,7 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void next(View view) {
-        Toast.makeText(this, "Value of index:" + index, Toast.LENGTH_SHORT).show();
+
         Info i = TransferData.array_item.get(index);
         current = index;
         id = i.getId();
@@ -191,7 +210,7 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void previous(View view) {
-        Toast.makeText(this, "Value of index:" + index, Toast.LENGTH_SHORT).show();
+
         if (index == 0)
             index = count - 1;
         else

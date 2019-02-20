@@ -49,14 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void viewList(View view){
 
-        Intent viewScreen = new Intent();
-        viewScreen.setClass(this.getApplicationContext(), ViewActivity.class);
-        startActivity(viewScreen);
-        finish();
-
-    }
     //code block to handle all permissions
     public boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {

@@ -53,7 +53,7 @@
                 android:contextClickable="true"
                 android:gravity="center"
                 android:onClick="maps"
-                android:text="address"
+
 
 
                 android:textColorLink="@color/colorPrimaryDark"
@@ -75,7 +75,7 @@
                 android:linksClickable="true"
                 android:longClickable="true"
                 android:onClick="call"
-                android:text="phone"
+
 
                 android:textColorLink="@color/colorPrimaryDark"
 
@@ -91,7 +91,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="children"
+
                 android:textSize="19dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +107,7 @@
                 android:background="@drawable/next"
                 android:gravity="center"
                 android:onClick="next"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,7 +120,7 @@
                 android:background="@drawable/previous"
                 android:gravity="center"
                 android:onClick="previous"
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,7 +133,7 @@
                 android:layout_marginTop="60dp"
                 android:fontFamily="sans-serif-condensed"
                 android:gravity="center"
-                android:text="spouse"
+
                 android:textSize="25dp"
 
                 android:textStyle="bold"
@@ -162,7 +162,7 @@
                     android:gravity="center"
                     android:inputType="textMultiLine"
 
-                    android:text="Notes"
+
                     android:textSize="15dp"
                     android:scrollbars="vertical"
 

@@ -34,7 +34,7 @@ public class AddActivity extends AppCompatActivity {
             String temp = edit.getStringExtra("index");
             index = Integer.valueOf(temp);
 
-            //
+
             populateField();
 
         }catch (Exception e)
@@ -93,9 +93,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void takePic(View view){
-//        Intent takePicture = new Intent();
-//        takePicture.setClass(this.getApplicationContext(),CameraActivity.class);
-//        startActivity(takePicture);
+
 
         Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
@@ -151,6 +149,7 @@ public class AddActivity extends AppCompatActivity {
         toView.setClass(getApplicationContext(), ViewActivity.class);
         startActivity(toView);
         finish();
+        Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show();
 
        //TODO request permission to write to external storage
 
@@ -198,6 +197,7 @@ public class AddActivity extends AppCompatActivity {
 
         DBMS db = new DBMS();
         db.updateEntry(in);
+        Toast.makeText(this, "Updated", Toast.LENGTH_SHORT).show();
 
         Intent toView = new Intent();
         toView.setClass(getApplicationContext(), ViewActivity.class);
@@ -210,38 +210,3 @@ public class AddActivity extends AppCompatActivity {
 }
 
 
-        /*
-
-        try {
-
-            final String inFileName = "/data/data/com.example.lovin.stalphonsachurchdirectory/databases/St.Augustine.db";
-             String external = Environment.getExternalStorageDirectory().getAbsolutePath();
-             String data = Environment.getRootDirectory().toURI().getPath();
-             Log.d(TAG,"External:"+external);
-             Log.d(TAG,"data:"+data);
-
-            File dbFile = new File(inFileName);
-            FileInputStream fis = new FileInputStream(dbFile);
-
-            String outFileName = Environment.getExternalStorageDirectory() + "/St.Augustinecopy.db";
-
-            // Open the empty db as the output stream
-            OutputStream output = new FileOutputStream(outFileName);
-
-            // Transfer bytes from the inputfile to the outputfile
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = fis.read(buffer)) > 0) {
-                output.write(buffer, 0, length);
-            }
-
-            // Close the streams
-            output.flush();
-            output.close();
-            fis.close();
-        }catch (Exception e)
-        {
-
-        }
-
-*/
