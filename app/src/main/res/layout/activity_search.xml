@@ -13,7 +13,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="151dp"
-        android:text="TextView" />
+        android:hint="Enter name"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/searchButton"

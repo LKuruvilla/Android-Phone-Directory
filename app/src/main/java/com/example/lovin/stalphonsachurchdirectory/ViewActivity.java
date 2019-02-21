@@ -93,12 +93,7 @@ public class ViewActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(getApplicationContext());
-            progress.setMessage("Accessing Contacts..Please Wait...");
-            progress.setProgress(20);
-            progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progress.setIndeterminate(true);
-            progress.show();
+
 
         }
 
@@ -107,6 +102,7 @@ public class ViewActivity extends AppCompatActivity {
 
             DBMS db = new DBMS();
             //DBMS.ref = bitmapdata;
+            publishProgress(50);
             TransferData.array_item = db.view(getApplicationContext());
             publishProgress(100);
             return null;
@@ -119,8 +115,7 @@ public class ViewActivity extends AppCompatActivity {
 
         @Override
         protected void onProgressUpdate(Integer... values) {
-           progress.setProgress(values[0]);
-           progress.show();
+
         }
     }
 

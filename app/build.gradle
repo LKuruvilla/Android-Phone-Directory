@@ -4,11 +4,14 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.lovin.stalphonsachurchdirectory"
-        minSdkVersion 23
+        minSdkVersion 25
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        checkReleaseBuilds false
     }
     buildTypes {
         release {

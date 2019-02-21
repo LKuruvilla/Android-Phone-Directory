@@ -223,13 +223,16 @@ public class DBMS  {
     }
 
     public ArrayList<Info> view(Context context){
+
+
+
         ArrayList<Info> items = null;
         items = new ArrayList<Info>();
         String query_allItems = "SELECT * FROM "+TABLE_NAME+ " ORDER BY "+Couple_Name+" COLLATE NOCASE ASC;";
 
-            db = SQLiteDatabase.openDatabase(path, null,
-                    SQLiteDatabase.OPEN_READONLY);
-
+//            db = SQLiteDatabase.openDatabase(path, null,
+//                    SQLiteDatabase.OPEN_READONLY);
+            db = SQLiteDatabase.openOrCreateDatabase(path,null);
 
            // Toast.makeText(context, "Please make a database first", Toast.LENGTH_SHORT).show();
 

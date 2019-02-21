@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.CAMERA,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.CALL_PHONE
+            Manifest.permission.CALL_PHONE,
+            Manifest.permission.ACCESS_FINE_LOCATION
     };
     Button view ;
     @Override
